@@ -39,13 +39,13 @@ response bodies. This avoids loading the whole body into memory at once.
 ## Rationale
 
 This NEP proposes adding a `PayloadType` protocol which contains a
-mutating method called `next` which returns an optional `Int8`.
+mutating method called `next` which returns an optional `UInt8`.
 
 ```swift
 /// Represents a HTTP request or response body<F24><F25>
 protocol PayloadType {
   /// Returns the next byte in the payload
-  mutating func next() -> Int8?
+  mutating func next() -> UInt8?
 }
 ```
 
