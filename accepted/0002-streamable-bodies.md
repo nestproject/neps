@@ -1,9 +1,9 @@
 ---
 NEP: 2
 Author: Kyle Fuller
-Status: Draft
+Status: Accepted
 Created: 2015-12-19
-Last Modified: 2015-12-19
+Last Modified: 2016-03-05
 ---
 
 # NEP 2: Streamable Bodies
@@ -39,13 +39,13 @@ response bodies. This avoids loading the whole body into memory at once.
 ## Rationale
 
 This NEP proposes adding a `PayloadType` protocol which contains a
-mutating method called `next` which returns an optional `UInt8`.
+mutating method called `next` which returns an optional array of `UInt8`.
 
 ```swift
-/// Represents a HTTP request or response body<F24><F25>
+/// Represents a HTTP request or response body
 protocol PayloadType {
   /// Returns the next byte in the payload
-  mutating func next() -> UInt8?
+  mutating func next() -> [UInt8]?
 }
 ```
 
@@ -58,7 +58,7 @@ public protocol RequestType {
   var method: String { get }
   var path: String { get }
   var headers: [Header] { get }
-  var body: PayloadType { get }
+  var body: PayloadType { get set }
 }
 ```
 
@@ -71,7 +71,7 @@ continuously call `next` on the body streaming the body to the client until
 public protocol ResponseType {
   var statusLine: String { get }
   var headers: [Header] { get }
-  var body: PayloadType? { get }
+  var body: PayloadType? { get set }
 }
 ```
 
